@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     },
 });
 
-Food.propTypes = {
-    snake: PropTypes.object,
-    food: PropTypes.object
+Board.propTypes = {
+    snake: PropTypes.array.isRequired,
+    food: PropTypes.object.isRequired,
+    setDirection: PropTypes.func.isRequired
 };
