@@ -5,7 +5,7 @@ import Segment from "./Segment";
 import Food from '../components/Food';
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../constants/directions";
 
-export default class Board extends Component {
+export default class Board extends React.Component {
     constructor(props) {
         super(props);
 

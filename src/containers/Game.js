@@ -15,7 +15,7 @@ const segmentRate = 10;
 const boardWidth = SharedStyle.board.width;
 const BoardHeight = SharedStyle.board.height - 10;
 
-class GameScreen extends Component {
+class GameScreen extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -124,7 +124,7 @@ class GameScreen extends Component {
     };
 
     _handleEatFood = snake => {
-        const {score, intervalRate, food, setScore, setSnake, setFood, setIntervalRate} = this.props;
+        const {score, intervalRate, food, setScore, setFood, setIntervalRate} = this.props;
 
         if (snake[0].x === food.x && snake[0].y === food.y) {
             const changedScore = score + 1;
