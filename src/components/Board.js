@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {PanResponder, StyleSheet, View} from "react-native";
 import SharedStyle from "../utils/sharedStyle";
 import Segment from "./Segment";

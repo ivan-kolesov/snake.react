@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, StatusBar, View, Platform, Dimensions} from 'react-native';
 import Board from '../components/Board';
 import ScoreText from '../components/ScoreText';
@@ -29,14 +29,37 @@ class GameScreen extends React.Component {
     }
 
     tick() {
-        const {snake: propSnake, score, highScore, direction, intervalRate, setSnake, setHighScore, navigation} = this.props;
+        const {snake: sourceSnake, score, highScore, direction, intervalRate, setSnake, setHighScore, navigation} = this.props;
 
-        let snake = _.cloneDeep(propSnake);
+        const snake = this._move(sourceSnake, direction);
+        setSnake(snake);
+
+        if (this._isGameOver(snake)) {
+            if (score > highScore) {
+                setHighScore(score);
+            }
+            cancelAnimationFrame(this.tick);
+            this._handleClearTimeout();
+            navigation.navigate('GameOver');
+            return;
+        }
+
+        this.timerID = setTimeout(() => {
+            requestAnimationFrame(() => this.tick());
+        }, 1000 / intervalRate);
+    }
+
+    _handleClearTimeout = () => {
+        clearTimeout(this.timerID);
+    };
+
+    _move = (sourceSnake, direction) => {
+        let snake = _.cloneDeep(sourceSnake);
         let lastSegment = snake[0];
 
-        for (let i = 0; i < propSnake.length; i++) {
+        for (let i = 0; i < sourceSnake.length; i++) {
             if (i !== 0) {
-                lastSegment = propSnake[i - 1];
+                lastSegment = sourceSnake[i - 1];
             }
 
             if (direction === DIRECTION_RIGHT) {
@@ -87,28 +110,17 @@ class GameScreen extends React.Component {
             }
         }
 
-        setSnake(snake);
+        return snake;
+    };
 
-        //isGameOver control
+    _isGameOver = snake => {
         for (let i = 1; i < snake.length; i++) {
             if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
-                if (score > highScore) {
-                    setHighScore(score);
-                }
-                cancelAnimationFrame(this.tick);
-                this._handleClearTimeout();
-                navigation.navigate('GameOver');
-                return;
+                return true;
             }
         }
 
-        this.timerID = setTimeout(() => {
-            requestAnimationFrame(() => this.tick());
-        }, 1000 / intervalRate);
-    }
-
-    _handleClearTimeout = () => {
-        clearTimeout(this.timerID);
+        return false;
     };
 
     _getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
