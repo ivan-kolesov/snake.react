@@ -18,12 +18,6 @@ const BoardHeight = SharedStyle.board.height - 10;
 class GameScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            snake: this.props.snake,
-            score: this.props.score,
-            food: this.props.food,
-            intervalRate: this.props.intervalRate,
-        };
     }
 
     componentDidMount() {
@@ -35,15 +29,14 @@ class GameScreen extends Component {
     }
 
     tick() {
-        let {intervalRate, snake, score} = this.state;
-        const {highScore, direction, setSnake, setHighScore, navigation} = this.props;
+        const {snake: propSnake, score, highScore, direction, intervalRate, setSnake, setHighScore, navigation} = this.props;
 
-        let clonedSnake = _.cloneDeep(snake.slice());
-        let lastSegment = clonedSnake[0];
+        let snake = _.cloneDeep(propSnake);
+        let lastSegment = snake[0];
 
-        for (let i = 0; i < clonedSnake.length; i++) {
+        for (let i = 0; i < propSnake.length; i++) {
             if (i !== 0) {
-                lastSegment = clonedSnake[i - 1];
+                lastSegment = propSnake[i - 1];
             }
 
             if (direction === DIRECTION_RIGHT) {
@@ -53,7 +46,7 @@ class GameScreen extends Component {
                     } else {
                         snake[i].x = snake[i].x + segmentRate;
                     }
-                    this._handleEatFood();
+                    snake = this._handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
@@ -64,7 +57,7 @@ class GameScreen extends Component {
                     if (snake[i].x < 0) {
                         snake[i].x = boardWidth - segmentRate;
                     }
-                    this._handleEatFood();
+                    snake = this._handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
@@ -75,7 +68,7 @@ class GameScreen extends Component {
                     if (snake[i].y > BoardHeight) {
                         snake[i].y = 0;
                     }
-                    this._handleEatFood();
+                    snake = this._handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
@@ -86,7 +79,7 @@ class GameScreen extends Component {
                     if (snake[i].y < 0) {
                         snake[i].y = BoardHeight;
                     }
-                    this._handleEatFood();
+                    snake = this._handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
@@ -97,7 +90,7 @@ class GameScreen extends Component {
         setSnake(snake);
 
         //isGameOver control
-        for (let i = 1; i < snake.slice().length; i++) {
+        for (let i = 1; i < snake.length; i++) {
             if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
                 if (score > highScore) {
                     setHighScore(score);
@@ -108,8 +101,6 @@ class GameScreen extends Component {
                 return;
             }
         }
-
-        this.setState({snake, lastSegment});
 
         this.timerID = setTimeout(() => {
             requestAnimationFrame(() => this.tick());
@@ -132,37 +123,31 @@ class GameScreen extends Component {
         }
     };
 
-    _handleEatFood = () => {
-        let {score, snake, food, intervalRate} = this.state;
+    _handleEatFood = snake => {
+        const {score, intervalRate, food, setScore, setSnake, setFood, setIntervalRate} = this.props;
 
         if (snake[0].x === food.x && snake[0].y === food.y) {
-            const {setScore, setSnake, setFood, setIntervalRate} = this.props;
-
-            score++;
-            setScore(score);
+            const changedScore = score + 1;
+            setScore(changedScore);
 
             snake.push({
                 id: snake[snake.length - 1].id + 1,
                 x: snake[snake.length - 1].x,
                 y: snake[snake.length - 1].y
             });
-            setSnake(snake);
 
-            if (score % 3 === 0) {
-                intervalRate = intervalRate + 3;
-                setIntervalRate(intervalRate);
+            if (changedScore % 3 === 0) {
+                setIntervalRate(intervalRate + 3);
             }
 
-            food = this._makeFood();
-            setFood(food);
-
-            this.setState({score, snake, food, intervalRate});
+            setFood(this._makeFood());
         }
+
+        return snake;
     };
 
     render() {
-        const {highScore, setDirection} = this.props;
-        const {snake, food, score} = this.state;
+        const {snake, score, highScore, food, setDirection} = this.props;
 
         return (
             <View style={styles.container}>
