@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, StatusBar, View, Platform, Dimensions} from 'react-native';
+import {NavigationEvents} from 'react-navigation';
 import Board from '../components/Board';
 import ScoreText from '../components/ScoreText';
 import * as gameSelectors from "../reducers/game";
@@ -18,10 +19,6 @@ const BoardHeight = SharedStyle.board.height - 10;
 class GameScreen extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount() {
-        this.tick();
     }
 
     componentWillUnmount() {
@@ -163,6 +160,7 @@ class GameScreen extends React.Component {
 
         return (
             <View style={styles.container}>
+                <NavigationEvents onWillFocus={() => this.tick()}/>
                 <StatusBar barStyle="light-content"/>
                 <ScoreBoardContainer score={score} highScore={highScore}/>
                 <Board setDirection={setDirection} snake={snake} food={food}/>
