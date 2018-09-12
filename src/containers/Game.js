@@ -17,10 +17,6 @@ const boardWidth = SharedStyle.board.width;
 const BoardHeight = SharedStyle.board.height - 10;
 
 class GameScreen extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentWillUnmount() {
         this._handleClearTimeout();
     }
@@ -38,12 +34,11 @@ class GameScreen extends React.Component {
             cancelAnimationFrame(this.tick);
             this._handleClearTimeout();
             navigation.navigate('GameOver');
-            return;
+        } else {
+            this.timerID = setTimeout(() => {
+                requestAnimationFrame(() => this.tick());
+            }, 1000 / intervalRate);
         }
-
-        this.timerID = setTimeout(() => {
-            requestAnimationFrame(() => this.tick());
-        }, 1000 / intervalRate);
     }
 
     _handleClearTimeout = () => {
