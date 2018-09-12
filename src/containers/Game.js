@@ -115,15 +115,14 @@ class GameScreen extends React.Component {
         return false;
     };
 
-    _getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
     _makeFood = () => {
         const frameX = (boardWidth - 10) / segmentRate;
         const frameY = BoardHeight / segmentRate;
+        const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
         return {
-            x: this._getRandomInt(0, frameX) * segmentRate,
-            y: this._getRandomInt(0, frameY) * segmentRate
+            x: getRandomInt(0, frameX) * segmentRate,
+            y: getRandomInt(0, frameY) * segmentRate
         }
     };
 

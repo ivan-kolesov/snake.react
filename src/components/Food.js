@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Image} from "react-native";
 import SharedStyle from '../utils/sharedStyle';
+import PropTypes from "prop-types";
 
 const apple = require('../assets/apple.png');
 
@@ -22,3 +23,8 @@ const styles = StyleSheet.create({
         height: SharedStyle.food.height,
     }
 });
+
+Food.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+};

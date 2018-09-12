@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Text, StyleSheet, TouchableOpacity} from "react-native";
 import SharedStyle from "../utils/sharedStyle";
+import PropTypes from "prop-types";
 
 export default class Button extends Component {
     render() {
@@ -31,3 +32,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     }
 });
+
+Button.propTypes = {
+    text: PropTypes.string.isRequired
+};

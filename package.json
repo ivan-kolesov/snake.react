@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
+    "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.1",
     "react-navigation": "^2.13.0",

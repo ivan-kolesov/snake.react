@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, Text, StyleSheet, Image} from "react-native";
 import SharedStyle from "../utils/sharedStyle";
+import PropTypes from "prop-types";
 
 const apple = require("../assets/apple.png");
 
@@ -35,3 +36,9 @@ const styles = StyleSheet.create({
         marginRight: 5
     }
 });
+
+ScoreText.propTypes = {
+    label: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    style: PropTypes.object
+};

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, StyleSheet} from "react-native";
 import SharedStyle from "../utils/sharedStyle";
+import PropTypes from "prop-types";
 
 export default class Segment extends Component {
     render() {
@@ -22,3 +23,8 @@ const styles = StyleSheet.create({
         borderColor: SharedStyle.segment.borderColor
     }
 });
+
+Segment.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+};
