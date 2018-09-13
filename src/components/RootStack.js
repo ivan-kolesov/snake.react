@@ -19,5 +19,8 @@ export const RootStack = createStackNavigator(
     {
         initialRouteName: 'Home',
         headerMode: 'none',
+        navigationOptions: {
+            gesturesEnabled: false,
+        },
     }
 );
