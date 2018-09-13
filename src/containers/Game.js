@@ -8,7 +8,7 @@ import * as gameActions from '../actions';
 import connect from "react-redux/es/connect/connect";
 import _ from "lodash";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../constants/directions";
-import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../utils/androidBackButton';
+import {AndroidBackButton} from '../components/androidBackButton';
 
 const {width} = Dimensions.get("window");
 import SharedStyle from "../utils/sharedStyle";
@@ -18,13 +18,8 @@ const boardWidth = SharedStyle.board.width;
 const BoardHeight = SharedStyle.board.height - 10;
 
 class GameScreen extends React.Component {
-    componentDidMount() {
-        handleAndroidBackButton();
-    }
-
     componentWillUnmount() {
         this._handleClearTimeout();
-        removeAndroidBackButtonHandler();
     }
 
     tick() {
@@ -159,12 +154,14 @@ class GameScreen extends React.Component {
         const {snake, score, highScore, food, setDirection} = this.props;
 
         return (
-            <View style={styles.container}>
-                <NavigationEvents onWillFocus={() => this.tick()}/>
-                <StatusBar barStyle="light-content"/>
-                <ScoreBoardContainer score={score} highScore={highScore}/>
-                <Board setDirection={setDirection} snake={snake} food={food}/>
-            </View>
+            <AndroidBackButton>
+                <View style={styles.container}>
+                    <NavigationEvents onWillFocus={() => this.tick()}/>
+                    <StatusBar barStyle="light-content"/>
+                    <ScoreBoardContainer score={score} highScore={highScore}/>
+                    <Board setDirection={setDirection} snake={snake} food={food}/>
+                </View>
+            </AndroidBackButton>
         );
     }
 }

@@ -1,0 +1,19 @@
+import {BackHandler} from 'react-native';
+import React, {Component} from 'react';
+
+export class AndroidBackButton extends Component {
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', () => {
+        });
+    }
+
+    render() {
+        return this.props.children;
+    }
+}

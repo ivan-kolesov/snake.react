@@ -8,17 +8,9 @@ import SharedStyle from "../utils/sharedStyle";
 import * as gameSelectors from "../reducers/game";
 import * as gameActions from "../actions";
 
-import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../utils/androidBackButton';
+import {AndroidBackButton} from '../components/androidBackButton';
 
 class GameOverScreen extends Component {
-    componentDidMount() {
-        handleAndroidBackButton();
-    }
-
-    componentWillUnmount() {
-        removeAndroidBackButtonHandler();
-    }
-
     _handleRestart = () => {
         const {navigation, setInitialState} = this.props;
 
@@ -30,18 +22,20 @@ class GameOverScreen extends Component {
         const {score} = this.props;
 
         return (
-            <View style={styles.container}>
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                    <GameOverText/>
+            <AndroidBackButton>
+                <View style={styles.container}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <GameOverText/>
+                    </View>
+                    <View style={{flex: 1, flexDirection: 'column',}}>
+                        <Button
+                            text="Играть еще"
+                            onPress={this._handleRestart}
+                        />
+                        <ScoreText label="Счет" score={score} style={{justifyContent: 'center', marginTop: 42}}/>
+                    </View>
                 </View>
-                <View style={{flex: 1, flexDirection: 'column',}}>
-                    <Button
-                        text="Играть еще"
-                        onPress={this._handleRestart}
-                    />
-                    <ScoreText label="Счет" score={score} style={{justifyContent: 'center', marginTop: 42}}/>
-                </View>
-            </View>
+            </AndroidBackButton>
         );
     }
 }
