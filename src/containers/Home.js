@@ -18,12 +18,12 @@ class HomeScreen extends Component {
                 </View>
                 <View style={{flex: 1, flexDirection: 'column'}}>
                     <Button
-                        text="PLAY"
+                        text="Играть"
                         onPress={() =>
                             navigation.navigate('Game')
                         }
                     />
-                    <ScoreText label="High Score" score={highScore} style={{justifyContent: 'center', marginTop: 42}}/>
+                    <ScoreText label="Рекорд" score={highScore} style={{justifyContent: 'center', marginTop: 42}}/>
                 </View>
             </View>
         );
@@ -33,7 +33,7 @@ class HomeScreen extends Component {
 const Logo = () => {
     return (
         <View style={{alignItems: 'center'}}>
-            <Text style={styles.logoText}>SNAKE</Text>
+            <Text style={styles.logoText}>Змейка</Text>
         </View>
     )
 };

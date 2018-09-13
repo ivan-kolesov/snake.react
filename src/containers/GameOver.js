@@ -26,10 +26,10 @@ class GameOverScreen extends Component {
                 </View>
                 <View style={{flex: 1, flexDirection: 'column',}}>
                     <Button
-                        text="RESTART"
+                        text="Играть еще"
                         onPress={this._handleRestart}
                     />
-                    <ScoreText label="Score" score={score} style={{justifyContent: 'center', marginTop: 42}}/>
+                    <ScoreText label="Счет" score={score} style={{justifyContent: 'center', marginTop: 42}}/>
                 </View>
             </View>
         );

@@ -201,8 +201,8 @@ export default connect(
 const ScoreBoardContainer = props => {
     return (
         <View style={styles.scoreBoard}>
-            <ScoreText label="Score" score={props.score}/>
-            <ScoreText label="High Score" score={props.highScore}/>
+            <ScoreText label="Счет" score={props.score}/>
+            <ScoreText label="Рекорд" score={props.highScore}/>
         </View>
     )
 };
