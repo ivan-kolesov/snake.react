@@ -8,6 +8,7 @@ import * as gameActions from '../actions';
 import connect from "react-redux/es/connect/connect";
 import _ from "lodash";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../constants/directions";
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../utils/androidBackButton';
 
 const {width} = Dimensions.get("window");
 import SharedStyle from "../utils/sharedStyle";
@@ -17,8 +18,13 @@ const boardWidth = SharedStyle.board.width;
 const BoardHeight = SharedStyle.board.height - 10;
 
 class GameScreen extends React.Component {
+    componentDidMount() {
+        handleAndroidBackButton();
+    }
+
     componentWillUnmount() {
         this._handleClearTimeout();
+        removeAndroidBackButtonHandler();
     }
 
     tick() {

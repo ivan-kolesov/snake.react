@@ -8,7 +8,17 @@ import SharedStyle from "../utils/sharedStyle";
 import * as gameSelectors from "../reducers/game";
 import * as gameActions from "../actions";
 
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../utils/androidBackButton';
+
 class GameOverScreen extends Component {
+    componentDidMount() {
+        handleAndroidBackButton();
+    }
+
+    componentWillUnmount() {
+        removeAndroidBackButtonHandler();
+    }
+
     _handleRestart = () => {
         const {navigation, setInitialState} = this.props;
 
