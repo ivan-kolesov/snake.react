@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, StyleSheet, TouchableOpacity} from "react-native";
-import SharedStyle from "../utils/sharedStyle";
+import SharedStyle from "../SharedStyles";
 import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({

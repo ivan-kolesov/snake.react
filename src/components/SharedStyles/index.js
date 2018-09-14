@@ -2,25 +2,25 @@ import {Dimensions} from "react-native";
 
 const {width, height} = Dimensions.get("window");
 
-function definiteWidth(width) {
+const definiteWidth = width => {
     const reminder = width % 10;
     if (reminder !== 0) {
         return width - reminder;
     } else {
         return width;
     }
-}
+};
 
-function definiteHeight(height) {
+const definiteHeight = height => {
     const reminder = height % 10;
     if (reminder !== 0) {
         return height - reminder - 60;
     } else {
         return height;
     }
-}
+};
 
-export const SharedStyle = {
+const SharedStyle = {
     color: {
         primary: '#122210',
         primaryBlack: 'black',

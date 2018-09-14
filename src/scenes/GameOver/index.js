@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
 import Button from '../../components/Button';
 import ScoreText from '../../components/ScoreText';
-import SharedStyle from "../../utils/sharedStyle";
+import SharedStyle from "../../components/SharedStyles";
 
-import * as gameSelectors from "../../services/reducers/game";
-import * as gameActions from "../../services/actions";
+import * as gameSelectors from "../../services/game/selectors";
+import * as gameActions from "../../services/game/actions";
 
 import AndroidBackButton from '../../components/AndroidBackButton';
 

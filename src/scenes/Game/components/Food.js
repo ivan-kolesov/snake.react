@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Image} from "react-native";
-import SharedStyle from '../../../utils/sharedStyle';
+import SharedStyle from '../../../components/SharedStyles';
 import PropTypes from "prop-types";
 
-const apple = require('../../../assets/apple.png');
+const apple = require('../../../images/apple.png');
 
 const styles = StyleSheet.create({
     container: {

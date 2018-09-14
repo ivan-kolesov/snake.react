@@ -3,15 +3,15 @@ import {StyleSheet, StatusBar, View, Platform, Dimensions} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
 import Board from './components/Board';
 import ScoreText from '../../components/ScoreText';
-import * as gameSelectors from "../../services/reducers/game";
-import * as gameActions from '../../services/actions';
+import * as gameSelectors from "../../services/game/selectors";
+import * as gameActions from "../../services/game/actions";
 import connect from "react-redux/es/connect/connect";
 import _ from "lodash";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "./directions";
 import AndroidBackButton from '../../components/AndroidBackButton';
 
 const {width} = Dimensions.get("window");
-import SharedStyle from "../../utils/sharedStyle";
+import SharedStyle from "../../components/SharedStyles";
 
 const segmentRate = 10;
 const boardWidth = SharedStyle.board.width;

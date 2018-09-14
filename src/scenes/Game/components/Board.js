@@ -1,6 +1,6 @@
 import React from "react";
 import {PanResponder, StyleSheet, View} from "react-native";
-import SharedStyle from "../../../utils/sharedStyle";
+import SharedStyle from "../../../components/SharedStyles";
 import Segment from "./Segment";
 import Food from './Food';
 import PropTypes from "prop-types";
