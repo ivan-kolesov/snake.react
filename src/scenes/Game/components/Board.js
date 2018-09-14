@@ -1,10 +1,10 @@
 import React from "react";
 import {PanResponder, StyleSheet, View} from "react-native";
-import SharedStyle from "../utils/sharedStyle";
+import SharedStyle from "../../../utils/sharedStyle";
 import Segment from "./Segment";
-import Food from '../components/Food';
+import Food from './Food';
 import PropTypes from "prop-types";
-import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../constants/directions";
+import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../directions";
 
 export default class Board extends React.Component {
     constructor(props) {

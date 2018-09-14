@@ -1,17 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
 import {View, StyleSheet} from "react-native";
-import SharedStyle from "../utils/sharedStyle";
+import SharedStyle from "../../../utils/sharedStyle";
 import PropTypes from "prop-types";
-
-export default class Segment extends Component {
-    render() {
-        const customStyle = {
-            left: this.props.x,
-            top: this.props.y
-        };
-        return <View style={[styles.container, customStyle]}/>;
-    }
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -24,7 +14,17 @@ const styles = StyleSheet.create({
     }
 });
 
+const Segment = props => {
+    const customStyle = {
+        left: props.x,
+        top: props.y
+    };
+    return <View style={[styles.container, customStyle]}/>;
+};
+
 Segment.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
 };
+
+export default Segment;

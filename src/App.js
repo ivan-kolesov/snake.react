@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {RootStack} from '../components/RootStack';
+import {RootStack} from './components/RootStack';
 
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
-import configureStore from '../stores/configureStore';
+import configureStore from './store';
 
 const {store, persistor} = configureStore();
 

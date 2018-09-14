@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
-import Button from '../components/Button';
-import ScoreText from '../components/ScoreText';
-import SharedStyle from "../utils/sharedStyle";
+import Button from '../../components/Button';
+import ScoreText from '../../components/ScoreText';
+import SharedStyle from "../../utils/sharedStyle";
 
-import * as gameSelectors from "../reducers/game";
-import * as gameActions from "../actions";
+import * as gameSelectors from "../../services/reducers/game";
+import * as gameActions from "../../services/actions";
 
-import AndroidBackButton from '../components/AndroidBackButton';
+import AndroidBackButton from '../../components/AndroidBackButton';
 
 class GameOverScreen extends Component {
     _handleRestart = () => {

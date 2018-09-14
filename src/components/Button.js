@@ -1,19 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
 import {Text, StyleSheet, TouchableOpacity} from "react-native";
 import SharedStyle from "../utils/sharedStyle";
 import PropTypes from "prop-types";
-
-export default class Button extends Component {
-    render() {
-        const {text} = this.props;
-
-        return (
-            <TouchableOpacity {...this.props} style={styles.container}>
-                <Text style={styles.text}>{text}</Text>
-            </TouchableOpacity>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -33,6 +21,18 @@ const styles = StyleSheet.create({
     }
 });
 
+const Button = props => {
+    const {text} = props;
+
+    return (
+        <TouchableOpacity {...props} style={styles.container}>
+            <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
+    );
+};
+
 Button.propTypes = {
     text: PropTypes.string.isRequired
 };
+
+export default Button;

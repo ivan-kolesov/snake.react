@@ -1,8 +1,8 @@
 import {createStackNavigator} from 'react-navigation';
 
-import HomeScreen from '../containers/Home';
-import GameScreen from '../containers/Game';
-import GameOverScreen from '../containers/GameOver';
+import HomeScreen from '../scenes/Home';
+import GameScreen from '../scenes/Game';
+import GameOverScreen from '../scenes/GameOver';
 
 export const RootStack = createStackNavigator(
     {

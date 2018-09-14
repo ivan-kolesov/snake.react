@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
-import Button from '../components/Button';
-import ScoreText from '../components/ScoreText';
-import SharedStyle from "../utils/sharedStyle";
+import Button from '../../components/Button';
+import ScoreText from '../../components/ScoreText';
+import SharedStyle from "../../utils/sharedStyle";
 
-import * as gameSelectors from "../reducers/game";
+import * as gameSelectors from "../../services/reducers/game";
 
 class HomeScreen extends Component {
     render() {

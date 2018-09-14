@@ -1,5 +1,5 @@
 import * as actions from "../actions/game";
-import {DIRECTION_RIGHT} from "../constants/directions";
+import {DIRECTION_RIGHT} from "../../scenes/Game/directions";
 
 export const getInitialState = () => ({
     snake: [
