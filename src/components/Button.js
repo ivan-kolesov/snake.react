@@ -22,11 +22,9 @@ const styles = StyleSheet.create({
 });
 
 const Button = props => {
-    const {text} = props;
-
     return (
         <TouchableOpacity {...props} style={styles.container}>
-            <Text style={styles.text}>{text}</Text>
+            <Text style={styles.text}>{props.text}</Text>
         </TouchableOpacity>
     );
 };

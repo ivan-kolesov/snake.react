@@ -17,6 +17,29 @@ const segmentRate = 10;
 const boardWidth = SharedStyle.board.width;
 const BoardHeight = SharedStyle.board.height - 10;
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        backgroundColor: "black",
+        ...Platform.select({
+            ios: {
+                paddingTop: 20
+            }
+        })
+    },
+    scoreBoard: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        alignItems: 'center',
+        width,
+        marginBottom: 5,
+        height: SharedStyle.scoreBoard.height,
+        backgroundColor: SharedStyle.color.primary
+    }
+});
+
 class GameScreen extends React.Component {
     componentWillUnmount() {
         this._handleClearTimeout();
@@ -209,26 +232,3 @@ const ScoreBoardContainer = props => {
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        backgroundColor: "black",
-        ...Platform.select({
-            ios: {
-                paddingTop: 20
-            }
-        })
-    },
-    scoreBoard: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        alignItems: 'center',
-        width,
-        marginBottom: 5,
-        height: SharedStyle.scoreBoard.height,
-        backgroundColor: SharedStyle.color.primary
-    }
-});

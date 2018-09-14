@@ -6,40 +6,6 @@ import Food from './Food';
 import PropTypes from "prop-types";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../directions";
 
-export default class Board extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this._panResponder = PanResponder.create({
-            onMoveShouldSetResponderCapture: () => true,
-            onMoveShouldSetPanResponderCapture: () => true,
-
-            onPanResponderMove: (e, {vx, vy}) => {
-                const {setDirection} = this.props;
-
-                if (Math.abs(vx) > Math.abs(vy)) {
-                    setDirection(vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
-                } else {
-                    setDirection(vy > 0 ? DIRECTION_DOWN : DIRECTION_UP);
-                }
-            },
-        });
-    }
-
-    render() {
-        const {snake, food} = this.props;
-
-        return (
-            <View style={styles.boardStyle} {...this._panResponder.panHandlers}>
-                {snake.map((segment) => {
-                    return <Segment key={segment.id} id={segment.id} x={segment.x} y={segment.y}/>;
-                })}
-                <Food x={food.x} y={food.y}/>
-            </View>
-        );
-    }
-}
-
 const styles = StyleSheet.create({
     boardStyle: {
         flexDirection: 'row',
@@ -50,8 +16,36 @@ const styles = StyleSheet.create({
     },
 });
 
+const Board = props => {
+    const {snake, food, setDirection} = props;
+
+    const panResponder = PanResponder.create({
+        onMoveShouldSetResponderCapture: () => true,
+        onMoveShouldSetPanResponderCapture: () => true,
+
+        onPanResponderMove: (e, {vx, vy}) => {
+            if (Math.abs(vx) > Math.abs(vy)) {
+                setDirection(vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
+            } else {
+                setDirection(vy > 0 ? DIRECTION_DOWN : DIRECTION_UP);
+            }
+        },
+    });
+
+    return (
+        <View style={styles.boardStyle} {...panResponder.panHandlers}>
+            {snake.map((segment) => {
+                return <Segment key={segment.id} id={segment.id} x={segment.x} y={segment.y}/>;
+            })}
+            <Food x={food.x} y={food.y}/>
+        </View>
+    );
+};
+
 Board.propTypes = {
     snake: PropTypes.array.isRequired,
     food: PropTypes.object.isRequired,
     setDirection: PropTypes.func.isRequired
 };
+
+export default Board;
