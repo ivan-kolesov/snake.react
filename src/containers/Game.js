@@ -8,7 +8,7 @@ import * as gameActions from '../actions';
 import connect from "react-redux/es/connect/connect";
 import _ from "lodash";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../constants/directions";
-import AndroidBackButton from '../components/androidBackButton';
+import AndroidBackButton from '../components/AndroidBackButton';
 
 const {width} = Dimensions.get("window");
 import SharedStyle from "../utils/sharedStyle";

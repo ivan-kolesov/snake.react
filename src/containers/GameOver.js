@@ -8,7 +8,7 @@ import SharedStyle from "../utils/sharedStyle";
 import * as gameSelectors from "../reducers/game";
 import * as gameActions from "../actions";
 
-import AndroidBackButton from '../components/androidBackButton';
+import AndroidBackButton from '../components/AndroidBackButton';
 
 class GameOverScreen extends Component {
     _handleRestart = () => {
