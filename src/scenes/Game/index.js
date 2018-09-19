@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: "black",
+        backgroundColor: "#30346D",
         ...Platform.select({
             ios: {
                 paddingTop: 20

@@ -22,10 +22,10 @@ const definiteHeight = height => {
 
 const SharedStyle = {
     color: {
-        primary: '#122210',
+        primary: '#30346D',
         primaryBlack: 'black',
         secondary: '#F9FF1C',
-        snake: '#4CAF50',
+        snake: '#597DCE',
         scoreColor: 'yellow',
         buttonBackground: '#000000'
     },
@@ -38,7 +38,7 @@ const SharedStyle = {
         height: 10,
         backgroundColor: '#4CAF50',
         borderWidth: 1,
-        borderColor: '#285A2A',
+        borderColor: '#8595A1',
     },
     food: {
         width: 10,
