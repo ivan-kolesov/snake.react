@@ -12,7 +12,10 @@ const styles = StyleSheet.create({
         position: "relative",
         width: SharedStyle.board.width,
         height: SharedStyle.board.height,
-        backgroundColor: SharedStyle.color.primary
+        backgroundColor: SharedStyle.color.primary,
+        borderWidth: 1,
+        borderStyle: 'dotted',
+        borderColor: '#8595A1'
     },
 });
 
