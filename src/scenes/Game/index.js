@@ -174,7 +174,7 @@ class GameScreen extends React.Component {
     };
 
     render() {
-        const {snake, score, highScore, food, setDirection} = this.props;
+        const {snake, score, highScore, food, direction, setDirection} = this.props;
 
         return (
             <AndroidBackButton>
@@ -182,7 +182,7 @@ class GameScreen extends React.Component {
                     <NavigationEvents onWillFocus={() => this.tick()}/>
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
-                    <Board setDirection={setDirection} snake={snake} food={food}/>
+                    <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
                 </View>
             </AndroidBackButton>
         );

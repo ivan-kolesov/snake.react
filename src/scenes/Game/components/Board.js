@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 });
 
 const Board = props => {
-    const {snake, food, setDirection} = props;
+    const {snake, food, direction, setDirection} = props;
 
     const panResponder = PanResponder.create({
         onMoveShouldSetResponderCapture: () => true,
@@ -25,9 +25,13 @@ const Board = props => {
 
         onPanResponderMove: (e, {vx, vy}) => {
             if (Math.abs(vx) > Math.abs(vy)) {
-                setDirection(vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
+                if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1) {
+                    setDirection(vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
+                }
             } else {
-                setDirection(vy > 0 ? DIRECTION_DOWN : DIRECTION_UP);
+                if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1) {
+                    setDirection(vy > 0 ? DIRECTION_DOWN : DIRECTION_UP);
+                }
             }
         },
     });
@@ -45,6 +49,7 @@ const Board = props => {
 Board.propTypes = {
     snake: PropTypes.array.isRequired,
     food: PropTypes.object.isRequired,
+    direction: PropTypes.string.isRequired,
     setDirection: PropTypes.func.isRequired
 };
 
