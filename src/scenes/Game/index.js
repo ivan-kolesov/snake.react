@@ -13,9 +13,9 @@ import AndroidBackButton from '../../components/AndroidBackButton';
 const {width} = Dimensions.get("window");
 import SharedStyle from "../../components/SharedStyles";
 
-const segmentRate = 10;
+const segmentRate = 20;
 const boardWidth = SharedStyle.board.width;
-const BoardHeight = SharedStyle.board.height - 10;
+const boardHeight = SharedStyle.board.height - 20;
 
 const styles = StyleSheet.create({
     container: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     scoreBoard: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         alignItems: 'center',
         width,
         marginBottom: 5,
@@ -104,7 +104,7 @@ class GameScreen extends React.Component {
             } else if (direction === DIRECTION_DOWN) {
                 if (i === 0) {
                     snake[i].y = snake[i].y + segmentRate;
-                    if (snake[i].y > BoardHeight) {
+                    if (snake[i].y > boardHeight) {
                         snake[i].y = 0;
                     }
                     snake = this._handleEatFood(snake);
@@ -116,7 +116,7 @@ class GameScreen extends React.Component {
                 if (i === 0) {
                     snake[i].y = snake[i].y - segmentRate;
                     if (snake[i].y < 0) {
-                        snake[i].y = BoardHeight;
+                        snake[i].y = boardHeight;
                     }
                     snake = this._handleEatFood(snake);
                 } else {
@@ -140,8 +140,8 @@ class GameScreen extends React.Component {
     };
 
     _makeFood = () => {
-        const frameX = (boardWidth - 10) / segmentRate;
-        const frameY = BoardHeight / segmentRate;
+        const frameX = (boardWidth - 20) / segmentRate;
+        const frameY = boardHeight / segmentRate;
         const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
         return {

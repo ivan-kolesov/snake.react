@@ -3,7 +3,7 @@ import {Dimensions} from "react-native";
 const {width, height} = Dimensions.get("window");
 
 const definiteWidth = width => {
-    const reminder = width % 10;
+    const reminder = width % 20;
     if (reminder !== 0) {
         return width - reminder;
     } else {
@@ -12,7 +12,7 @@ const definiteWidth = width => {
 };
 
 const definiteHeight = height => {
-    const reminder = height % 10;
+    const reminder = height % 20;
     if (reminder !== 0) {
         return height - reminder - 60;
     } else {
@@ -34,15 +34,15 @@ const SharedStyle = {
         width: definiteWidth(width),
     },
     segment: {
-        width: 10,
-        height: 10,
+        width: 20,
+        height: 20,
         backgroundColor: '#4CAF50',
         borderWidth: 2,
         borderColor: '#6DC2CA',
     },
     food: {
-        width: 10,
-        height: 10,
+        width: 20,
+        height: 20,
         backgroundColor: 'red',
         borderWidth: 1,
         borderColor: 'black',

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         width: SharedStyle.segment.width,
         height: SharedStyle.segment.height,
         backgroundColor: SharedStyle.color.snake,
-        borderRadius: 4,
+        borderRadius: 6,
         borderWidth: SharedStyle.segment.borderWidth,
         borderColor: SharedStyle.segment.borderColor
     }
