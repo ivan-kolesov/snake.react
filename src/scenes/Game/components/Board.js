@@ -3,6 +3,8 @@ import {PanResponder, StyleSheet, View} from "react-native";
 import SharedStyle from "../../../components/SharedStyles";
 import Segment from "./Segment";
 import Food from './Food';
+import Cell from './Cell';
+import * as boardConstants from '../board';
 import PropTypes from "prop-types";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../directions";
 
@@ -13,11 +15,20 @@ const styles = StyleSheet.create({
         width: SharedStyle.board.width,
         height: SharedStyle.board.height,
         backgroundColor: SharedStyle.color.primary,
-        borderWidth: 1,
-        borderStyle: 'dotted',
-        borderColor: '#8595A1'
     },
 });
+
+const generateCells = () => {
+    let cells = [];
+    let counter = 0;
+    for (let i = 0; i <= boardConstants.frameX; i++) {
+        for (let j = 0; j <= boardConstants.frameY; j++) {
+            cells.push({id: counter++, x: i * boardConstants.segmentRate, y: j * boardConstants.segmentRate});
+        }
+    }
+
+    return cells;
+};
 
 const Board = props => {
     const {snake, food, direction, setDirection} = props;
@@ -45,6 +56,9 @@ const Board = props => {
                 return <Segment key={segment.id} id={segment.id} x={segment.x} y={segment.y}/>;
             })}
             <Food x={food.x} y={food.y}/>
+            {generateCells().map((cell) => {
+                return <Cell key={cell.id} x={cell.x} y={cell.y}/>;
+            })}
         </View>
     );
 };

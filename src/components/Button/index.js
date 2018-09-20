@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         height: 62,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 100,
+        borderRadius: 20,
         borderWidth: 1,
         borderColor: 'white',
         backgroundColor: SharedStyle.color.buttonBackground

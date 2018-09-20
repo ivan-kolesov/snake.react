@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, StatusBar, View, Platform, Dimensions} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
 import Board from './components/Board';
+import * as boardConstants from './board';
 import ScoreText from '../../components/ScoreText';
 import * as gameSelectors from "../../services/game/selectors";
 import * as gameActions from "../../services/game/actions";
@@ -12,10 +13,6 @@ import AndroidBackButton from '../../components/AndroidBackButton';
 
 const {width} = Dimensions.get("window");
 import SharedStyle from "../../components/SharedStyles";
-
-const segmentRate = 20;
-const boardWidth = SharedStyle.board.width;
-const boardHeight = SharedStyle.board.height - 20;
 
 const styles = StyleSheet.create({
     container: {
@@ -42,21 +39,21 @@ const styles = StyleSheet.create({
 
 class GameScreen extends React.Component {
     componentWillUnmount() {
-        this._handleClearTimeout();
+        this.handleClearTimeout();
     }
 
     tick() {
         const {snake: sourceSnake, score, highScore, direction, intervalRate, setSnake, setHighScore, navigation} = this.props;
 
-        const snake = this._move(sourceSnake, direction);
+        const snake = this.move(sourceSnake, direction);
         setSnake(snake);
 
-        if (this._isGameOver(snake)) {
+        if (this.isGameOver(snake)) {
             if (score > highScore) {
                 setHighScore(score);
             }
             cancelAnimationFrame(this.tick);
-            this._handleClearTimeout();
+            this.handleClearTimeout();
             navigation.navigate('GameOver');
         } else {
             this.timerID = setTimeout(() => {
@@ -65,11 +62,11 @@ class GameScreen extends React.Component {
         }
     }
 
-    _handleClearTimeout = () => {
+    handleClearTimeout = () => {
         clearTimeout(this.timerID);
     };
 
-    _move = (sourceSnake, direction) => {
+    move = (sourceSnake, direction) => {
         let snake = _.cloneDeep(sourceSnake);
         let lastSegment = snake[0];
 
@@ -80,45 +77,45 @@ class GameScreen extends React.Component {
 
             if (direction === DIRECTION_RIGHT) {
                 if (i === 0) {
-                    if (snake[i].x + segmentRate >= boardWidth) {
+                    if (snake[i].x + boardConstants.segmentRate >= boardConstants.boardWidth) {
                         snake[i].x = 0;
                     } else {
-                        snake[i].x = snake[i].x + segmentRate;
+                        snake[i].x = snake[i].x + boardConstants.segmentRate;
                     }
-                    snake = this._handleEatFood(snake);
+                    snake = this.handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
                 }
             } else if (direction === DIRECTION_LEFT) {
                 if (i === 0) {
-                    snake[i].x = snake[i].x - segmentRate;
+                    snake[i].x = snake[i].x - boardConstants.segmentRate;
                     if (snake[i].x < 0) {
-                        snake[i].x = boardWidth - segmentRate;
+                        snake[i].x = boardConstants.boardWidth - boardConstants.segmentRate;
                     }
-                    snake = this._handleEatFood(snake);
+                    snake = this.handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
                 }
             } else if (direction === DIRECTION_DOWN) {
                 if (i === 0) {
-                    snake[i].y = snake[i].y + segmentRate;
-                    if (snake[i].y > boardHeight) {
+                    snake[i].y = snake[i].y + boardConstants.segmentRate;
+                    if (snake[i].y > boardConstants.boardHeight) {
                         snake[i].y = 0;
                     }
-                    snake = this._handleEatFood(snake);
+                    snake = this.handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
                 }
             } else if (direction === DIRECTION_UP) {
                 if (i === 0) {
-                    snake[i].y = snake[i].y - segmentRate;
+                    snake[i].y = snake[i].y - boardConstants.segmentRate;
                     if (snake[i].y < 0) {
-                        snake[i].y = boardHeight;
+                        snake[i].y = boardConstants.boardHeight;
                     }
-                    snake = this._handleEatFood(snake);
+                    snake = this.handleEatFood(snake);
                 } else {
                     snake[i].x = lastSegment.x;
                     snake[i].y = lastSegment.y;
@@ -129,7 +126,7 @@ class GameScreen extends React.Component {
         return snake;
     };
 
-    _isGameOver = snake => {
+    isGameOver = snake => {
         for (let i = 1; i < snake.length; i++) {
             if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
                 return true;
@@ -139,18 +136,16 @@ class GameScreen extends React.Component {
         return false;
     };
 
-    _makeFood = () => {
-        const frameX = (boardWidth - 20) / segmentRate;
-        const frameY = boardHeight / segmentRate;
+    makeFood = () => {
         const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
         return {
-            x: getRandomInt(0, frameX) * segmentRate,
-            y: getRandomInt(0, frameY) * segmentRate
+            x: getRandomInt(0, boardConstants.frameX) * boardConstants.segmentRate,
+            y: getRandomInt(0, boardConstants.frameY) * boardConstants.segmentRate
         }
     };
 
-    _handleEatFood = snake => {
+    handleEatFood = snake => {
         const {score, intervalRate, food, setScore, setFood, setIntervalRate} = this.props;
 
         if (snake[0].x === food.x && snake[0].y === food.y) {
@@ -167,7 +162,7 @@ class GameScreen extends React.Component {
                 setIntervalRate(intervalRate + 3);
             }
 
-            setFood(this._makeFood());
+            setFood(this.makeFood());
         }
 
         return snake;
@@ -227,8 +222,8 @@ export default connect(
 const ScoreBoardContainer = props => {
     return (
         <View style={styles.scoreBoard}>
-            <ScoreText label="Счет" score={props.score}/>
-            <ScoreText label="Рекорд" score={props.highScore}/>
+            <ScoreText label="Score" score={props.score}/>
+            <ScoreText label="High score" score={props.highScore}/>
         </View>
     )
 };
