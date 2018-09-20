@@ -9,10 +9,11 @@ const styles = StyleSheet.create({
         height: 62,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 20,
+        borderRadius: 10,
         borderWidth: 1,
-        borderColor: 'white',
-        backgroundColor: SharedStyle.color.buttonBackground
+        borderColor: '#6DC2CA',
+        backgroundColor: SharedStyle.color.buttonBackground,
+        marginTop: -20
     },
     text: {
         fontSize: 32,

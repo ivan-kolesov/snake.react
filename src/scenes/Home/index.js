@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, ImageBackground} from 'react-native';
 import Button from '../../components/Button';
 import ScoreText from '../../components/ScoreText';
 
@@ -11,27 +11,28 @@ class HomeScreen extends Component {
         const {highScore, navigation} = this.props;
 
         return (
-            <View style={styles.container}>
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Logo/>
+            <ImageBackground source={require('../../images/mainscreen_wo_ui.png')} style={styles.background}>
+                <View style={styles.container}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <Logo/>
+                    </View>
+                    <View style={{flex: 1, flexDirection: 'column'}}>
+                        <Button text="Play"
+                                onPress={() =>
+                                    navigation.navigate('Game')
+                                }
+                        />
+                        <ScoreText label="High score" score={highScore} style={styles.scoreText}/>
+                    </View>
                 </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <Button
-                        text="Play"
-                        onPress={() =>
-                            navigation.navigate('Game')
-                        }
-                    />
-                    <ScoreText label="High score" score={highScore} style={{justifyContent: 'center', marginTop: 42}}/>
-                </View>
-            </View>
+            </ImageBackground>
         );
     }
 }
 
 const Logo = () => {
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', paddingTop: 100}}>
             <Text style={styles.logoText}>Just Snake</Text>
         </View>
     )
@@ -46,14 +47,21 @@ export default connect(
 )(HomeScreen);
 
 const styles = StyleSheet.create({
+    background: {
+        width: '100%',
+        height: '100%'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#30346D',
     },
     logoText: {
         fontSize: 52,
-        color: '#DEEED6',
+        color: '#DEEED6'
+    },
+    scoreText: {
+        justifyContent: 'center',
+        marginTop: 22
     }
 });
