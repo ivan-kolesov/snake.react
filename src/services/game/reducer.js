@@ -1,16 +1,17 @@
 import * as actions from "../game/actions";
 import {DIRECTION_RIGHT} from "../../scenes/Game/directions";
+import {segmentRate} from '../../scenes/Game/board';
 
 export const getInitialState = () => ({
     snake: [
-        {id: 1, x: 40, y: 0},
-        {id: 2, x: 20, y: 0},
+        {id: 1, x: 2 * segmentRate, y: 0},
+        {id: 2, x: segmentRate, y: 0},
         {id: 3, x: 0, y: 0}
     ],
     intervalRate: 10,
     direction: DIRECTION_RIGHT,
-    lastSegment: 20,
-    food: {x: 100, y: 100},
+    lastSegment: segmentRate,
+    food: {x: 5 * segmentRate, y: 5 * segmentRate},
     score: 0
 });
 
