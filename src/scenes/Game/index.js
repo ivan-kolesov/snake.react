@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, StatusBar, View, Platform, Dimensions} from 'react-native';
+import {StyleSheet, StatusBar, View, Platform, Dimensions, Alert} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
 import Board from './components/Board';
 import * as boardConstants from './board';
@@ -43,24 +43,34 @@ class GameScreen extends React.Component {
     }
 
     tick() {
-        const {snake: sourceSnake, score, highScore, direction, intervalRate, setSnake, setHighScore, navigation} = this.props;
+        const {snake: sourceSnake, direction, intervalRate, setSnake} = this.props;
 
         const snake = this.move(sourceSnake, direction);
         setSnake(snake);
 
-        if (this.isGameOver(snake)) {
-            if (score > highScore) {
-                setHighScore(score);
-            }
-            cancelAnimationFrame(this.tick);
-            this.handleClearTimeout();
-            navigation.navigate('GameOver');
+        if (this.isKnotted(snake)) {
+            this.handleGameOver();
+        } else if (this.hasNoLeftSpace(snake)) {
+            Alert.alert('You win', null);
+            this.handleGameOver();
         } else {
             this.timerID = setTimeout(() => {
                 requestAnimationFrame(() => this.tick());
             }, 1000 / intervalRate);
         }
     }
+
+    handleGameOver = () => {
+        const {score, highScore, setHighScore} = this.props;
+
+        if (score > highScore) {
+            setHighScore(score);
+        }
+
+        cancelAnimationFrame(this.tick);
+        this.handleClearTimeout();
+        this.props.navigation.navigate('GameOver');
+    };
 
     handleClearTimeout = () => {
         clearTimeout(this.timerID);
@@ -126,7 +136,7 @@ class GameScreen extends React.Component {
         return snake;
     };
 
-    isGameOver = snake => {
+    isKnotted = snake => {
         for (let i = 1; i < snake.length; i++) {
             if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
                 return true;
@@ -136,13 +146,23 @@ class GameScreen extends React.Component {
         return false;
     };
 
-    makeFood = () => {
+    hasNoLeftSpace = snake => {
+        return snake.length === (boardConstants.frameY + 1) * (boardConstants.frameY + 1);
+    };
+
+    makeFood = snake => {
         const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-        return {
+        const food = {
             x: getRandomInt(0, boardConstants.frameX) * boardConstants.segmentRate,
             y: getRandomInt(0, boardConstants.frameY) * boardConstants.segmentRate
+        };
+
+        if (_.some(snake, (segment) => _.isEqual({x: segment.x, y: segment.y}, food))) {
+            return this.makeFood(snake);
         }
+
+        return food;
     };
 
     handleEatFood = snake => {
@@ -158,11 +178,15 @@ class GameScreen extends React.Component {
                 y: snake[snake.length - 1].y
             });
 
+            if (this.hasNoLeftSpace(snake)) {
+                return snake;
+            }
+
             if (changedScore % 3 === 0) {
                 setIntervalRate(intervalRate + 3);
             }
 
-            setFood(this.makeFood());
+            setFood(this.makeFood(snake));
         }
 
         return snake;

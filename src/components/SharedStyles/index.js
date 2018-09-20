@@ -27,7 +27,7 @@ const SharedStyle = {
         secondary: '#F9FF1C',
         snake: '#597DCE',
         scoreColor: '#DEEED6',
-        buttonBackground: '#30346D'
+        buttonBackground: '#597DCE'
     },
     board: {
         height: definiteHeight(height),
@@ -43,9 +43,6 @@ const SharedStyle = {
     food: {
         width: 20,
         height: 20,
-        backgroundColor: 'red',
-        borderWidth: 1,
-        borderColor: 'black',
     },
     scoreBoard: {
         height: 34,

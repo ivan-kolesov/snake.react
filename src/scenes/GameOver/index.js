@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
 import Button from '../../components/Button';
 import ScoreText from '../../components/ScoreText';
-import SharedStyle from "../../components/SharedStyles";
 
 import * as gameSelectors from "../../services/game/selectors";
 import * as gameActions from "../../services/game/actions";
@@ -11,7 +10,7 @@ import * as gameActions from "../../services/game/actions";
 import AndroidBackButton from '../../components/AndroidBackButton';
 
 class GameOverScreen extends Component {
-    _handleRestart = () => {
+    handleRestart = () => {
         const {navigation, setInitialState} = this.props;
 
         setInitialState();
@@ -30,7 +29,7 @@ class GameOverScreen extends Component {
                     <View style={{flex: 1, flexDirection: 'column',}}>
                         <Button
                             text="Play again"
-                            onPress={this._handleRestart}
+                            onPress={this.handleRestart}
                         />
                         <ScoreText label="Score" score={score} style={{justifyContent: 'center', marginTop: 42}}/>
                     </View>
@@ -69,10 +68,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000',
+        backgroundColor: '#30346D',
     },
     logoText: {
         fontSize: 52,
-        color: SharedStyle.color.snake,
+        color: '#DEEED6',
     }
 });

@@ -25,12 +25,16 @@ const Board = props => {
         onMoveShouldSetPanResponderCapture: () => true,
 
         onPanResponderMove: (e, {vx, vy}) => {
-            if (Math.abs(vx) > Math.abs(vy)) {
-                if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1) {
+            const velocityThreshold = 0.2;
+            const absVx = Math.abs(vx);
+            const absVy = Math.abs(vy);
+
+            if (absVx > absVy) {
+                if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1 && absVx > velocityThreshold) {
                     setDirection(vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
                 }
             } else {
-                if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1) {
+                if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1 && absVy > velocityThreshold) {
                     setDirection(vy > 0 ? DIRECTION_DOWN : DIRECTION_UP);
                 }
             }

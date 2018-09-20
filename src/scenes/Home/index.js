@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
 import Button from '../../components/Button';
 import ScoreText from '../../components/ScoreText';
-import SharedStyle from "../../components/SharedStyles";
 
 import * as gameSelectors from "../../services/game/selectors";
 
@@ -51,10 +50,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000',
+        backgroundColor: '#30346D',
     },
     logoText: {
         fontSize: 52,
-        color: SharedStyle.color.snake,
+        color: '#DEEED6',
     }
 });
