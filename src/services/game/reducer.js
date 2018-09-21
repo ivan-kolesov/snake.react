@@ -8,7 +8,7 @@ export const getInitialState = () => ({
         {id: 2, x: segmentRate, y: 0},
         {id: 3, x: 0, y: 0}
     ],
-    intervalRate: 10,
+    intervalRate: 5,
     direction: DIRECTION_RIGHT,
     lastSegment: segmentRate,
     food: {x: 5 * segmentRate, y: 5 * segmentRate},

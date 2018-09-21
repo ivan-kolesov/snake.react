@@ -13,30 +13,13 @@ class HomeScreen extends Component {
         return (
             <ImageBackground source={require('../../images/mainscreen_wo_ui.png')} style={styles.background}>
                 <View style={styles.container}>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                        <Logo/>
-                    </View>
-                    <View style={{flex: 1, flexDirection: 'column'}}>
-                        <Button text="Play"
-                                onPress={() =>
-                                    navigation.navigate('Game')
-                                }
-                        />
-                        <ScoreText label="High score" score={highScore} style={styles.scoreText}/>
-                    </View>
+                    <Button text="Play" onPress={() => navigation.navigate('Game')}/>
+                    <ScoreText label="High score" score={highScore} style={styles.scoreText}/>
                 </View>
             </ImageBackground>
         );
     }
 }
-
-const Logo = () => {
-    return (
-        <View style={{alignItems: 'center', paddingTop: 100}}>
-            <Text style={styles.logoText}>Just Snake</Text>
-        </View>
-    )
-};
 
 const mapStateToProps = store => ({
     highScore: gameSelectors.getHighScore(store)
@@ -55,6 +38,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
     },
     logoText: {
         fontSize: 52,
