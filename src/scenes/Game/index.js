@@ -183,7 +183,7 @@ class GameScreen extends React.Component {
             }
 
             if (changedScore % 3 === 0) {
-                setIntervalRate(intervalRate + 3);
+                setIntervalRate(intervalRate + 1);
             }
 
             setFood(this.makeFood(snake));
