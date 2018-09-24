@@ -1,7 +1,7 @@
 import {BackHandler} from 'react-native';
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class AndroidBackButton extends Component {
+export default class AndroidBackButton extends React.PureComponent {
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', () => {
             return true;

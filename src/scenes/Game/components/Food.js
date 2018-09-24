@@ -13,18 +13,18 @@ const styles = StyleSheet.create({
     }
 });
 
-const Food = props => {
-    const customStyle = {
-        left: props.x,
-        top: props.y
-    };
+export default class Food extends React.PureComponent {
+    render() {
+        const customStyle = {
+            left: this.props.x,
+            top: this.props.y
+        };
 
-    return <Image source={apple} style={[styles.container, customStyle]}/>;
+        return <Image source={apple} style={[styles.container, customStyle]}/>;
+    }
 };
 
 Food.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
 };
-
-export default Food;
