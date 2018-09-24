@@ -42,8 +42,16 @@ class GameScreen extends React.Component {
         this.handleClearTimeout();
     }
 
+    handleFocus = () => {
+        if (this.props.timerID === undefined) {
+            this.props.setInitialState(() => this.tick());
+        } else {
+            this.tick();
+        }
+    };
+
     tick() {
-        const {snake: sourceSnake, direction, intervalRate, setSnake} = this.props;
+        const {snake: sourceSnake, direction, intervalRate, setTimerId, setSnake} = this.props;
 
         const snake = this.move(sourceSnake, direction);
         setSnake(snake);
@@ -54,26 +62,30 @@ class GameScreen extends React.Component {
             Alert.alert('You win', null);
             this.handleGameOver();
         } else {
-            this.timerID = setTimeout(() => {
+            const timerID = setTimeout(() => {
                 requestAnimationFrame(() => this.tick());
             }, 1000 / intervalRate);
+            setTimerId(timerID);
         }
     }
 
     handleGameOver = () => {
-        const {score, highScore, setHighScore} = this.props;
+        const {score, highScore, setTimerId, setHighScore} = this.props;
 
         if (score > highScore) {
             setHighScore(score);
         }
 
-        cancelAnimationFrame(this.tick);
         this.handleClearTimeout();
         this.props.navigation.navigate('GameOver');
     };
 
     handleClearTimeout = () => {
-        clearTimeout(this.timerID);
+        const {setTimerId, timerID} = this.props;
+
+        cancelAnimationFrame(this.tick);
+        clearTimeout(timerID);
+        setTimerId(undefined);
     };
 
     move = (sourceSnake, direction) => {
@@ -198,7 +210,7 @@ class GameScreen extends React.Component {
         return (
             <AndroidBackButton>
                 <View style={styles.container}>
-                    <NavigationEvents onWillFocus={() => this.tick()}/>
+                    <NavigationEvents onWillFocus={this.handleFocus}/>
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
                     <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
@@ -209,6 +221,7 @@ class GameScreen extends React.Component {
 }
 
 const mapStateToProps = store => ({
+    timerID: gameSelectors.getTimerId(store),
     highScore: gameSelectors.getHighScore(store),
     score: gameSelectors.getScore(store),
     snake: gameSelectors.getSnake(store),
@@ -218,6 +231,9 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    setTimerId(timerId) {
+        dispatch(gameActions.setTimerId(timerId));
+    },
     setSnake(snake) {
         dispatch(gameActions.setSnake(snake));
     },
@@ -235,6 +251,9 @@ const mapDispatchToProps = dispatch => ({
     },
     setIntervalRate(rate) {
         dispatch(gameActions.setIntervalRate(rate));
+    },
+    setInitialState(callback) {
+        dispatch(gameActions.setInitialState()).then(callback);
     }
 });
 

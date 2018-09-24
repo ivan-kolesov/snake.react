@@ -13,8 +13,9 @@ class GameOverScreen extends Component {
     handleRestart = () => {
         const {navigation, setInitialState} = this.props;
 
-        setInitialState();
-        navigation.navigate('Game');
+        setInitialState(() => {
+            navigation.navigate('Game')
+        });
     };
 
     render() {
@@ -53,8 +54,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setInitialState() {
-        dispatch(gameActions.setInitialState());
+    setInitialState(callback) {
+        dispatch(gameActions.setInitialState()).then(callback);
     }
 });
 

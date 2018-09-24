@@ -1,3 +1,5 @@
+export const getTimerId = store => store.game.timerID;
+
 export const getScore = store => store.game.score;
 
 export const getHighScore = store => store.game.highScore;

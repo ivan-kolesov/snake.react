@@ -3,6 +3,7 @@ import {DIRECTION_RIGHT} from "../../scenes/Game/directions";
 import {segmentRate} from '../../scenes/Game/board';
 
 export const getInitialState = () => ({
+    timerID: undefined,
     snake: [
         {id: 1, x: 2 * segmentRate, y: 0},
         {id: 2, x: segmentRate, y: 0},
@@ -12,7 +13,7 @@ export const getInitialState = () => ({
     direction: DIRECTION_RIGHT,
     lastSegment: segmentRate,
     food: {x: 5 * segmentRate, y: 5 * segmentRate},
-    score: 0
+    score: 0,
 });
 
 const initialState = {
@@ -34,6 +35,8 @@ export default (state = initialState, action) => {
             return {...state, direction: action.payload};
         case actions.SET_INTERVAL_RATE:
             return {...state, intervalRate: action.payload};
+        case actions.SET_TIMER_ID:
+            return {...state, timerID: action.payload};
         case actions.SET_INITIAL_STATE:
             return {...state, ...getInitialState()};
         default:

@@ -5,6 +5,7 @@ export const SET_FOOD = 'SET_FOOD';
 export const SET_DIRECTION = 'SET_DIRECTION';
 export const SET_INTERVAL_RATE = 'SET_INTERVAL_RATE';
 export const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
+export const SET_TIMER_ID = 'SET_TIMER_ID';
 
 export const setScore = score => ({
     type: SET_SCORE,
@@ -36,6 +37,15 @@ export const setIntervalRate = rate => ({
     payload: rate
 });
 
-export const setInitialState = () => ({
-    type: SET_INITIAL_STATE,
+export const setInitialState = () => dispatch => {
+    dispatch({
+        type: SET_INITIAL_STATE
+    });
+
+    return Promise.resolve();
+};
+
+export const setTimerId = timerId => ({
+    type: SET_TIMER_ID,
+    payload: timerId
 });
