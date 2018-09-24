@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text, ImageBackground} from 'react-native';
+import {StyleSheet, View, ImageBackground} from 'react-native';
 import Button from '../../components/Button';
 import ScoreText from '../../components/ScoreText';
 

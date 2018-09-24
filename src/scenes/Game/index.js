@@ -70,7 +70,7 @@ class GameScreen extends React.Component {
     }
 
     handleGameOver = () => {
-        const {score, highScore, setTimerId, setHighScore} = this.props;
+        const {score, highScore, setHighScore} = this.props;
 
         if (score > highScore) {
             setHighScore(score);
