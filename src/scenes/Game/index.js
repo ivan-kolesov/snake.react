@@ -218,7 +218,7 @@ class GameScreen extends React.Component {
         return (
             <AndroidBackButton>
                 <View style={styles.container}>
-                    <NavigationEvents onWillFocus={this.handleFocus}/>
+                    <NavigationEvents onWillFocus={this.handleFocus} onDidBlur={this.handleClearTimeout}/>
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
                     <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
