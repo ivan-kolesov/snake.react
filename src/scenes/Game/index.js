@@ -170,11 +170,11 @@ class GameScreen extends React.Component {
             y: getRandomInt(0, boardConstants.frameY) * boardConstants.segmentRate
         };
 
-        if (_.some(snake, (segment) => _.isEqual({x: segment.x, y: segment.y}, food))) {
-            return this.makeFood(snake);
+        if (!_.some(snake, (segment) => _.isEqual({x: segment.x, y: segment.y}, food))) {
+            return food;
         }
 
-        return food;
+        return this.makeFood(snake);
     };
 
     bumpFood = (snake, eat) => {
