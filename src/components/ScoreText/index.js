@@ -13,26 +13,24 @@ const styles = StyleSheet.create({
         color: SharedStyle.color.scoreColor,
         fontWeight: "bold",
         marginRight: 5
+    },
+    image: {
+        width: SharedStyle.food.width,
+        height: SharedStyle.food.height
     }
 });
 
-const ScoreText = props => {
-    const {label, score, style} = props;
+export default class ScoreText extends React.PureComponent {
+    render() {
+        const {label, score, style} = this.props;
 
-    return (
-        <View style={[styles.container, style]}>
-            <Text style={styles.scoreText}>
-                {label} : {score}
-            </Text>
-            <Image
-                source={apple}
-                style={{
-                    width: SharedStyle.food.width,
-                    height: SharedStyle.food.height
-                }}
-            />
-        </View>
-    );
+        return (
+            <View style={[styles.container, style]}>
+                <Text style={styles.scoreText}>{label} : {score}</Text>
+                <Image source={apple} style={styles.image}/>
+            </View>
+        );
+    }
 };
 
 ScoreText.propTypes = {
@@ -40,5 +38,3 @@ ScoreText.propTypes = {
     score: PropTypes.number.isRequired,
     style: PropTypes.object
 };
-
-export default ScoreText;
