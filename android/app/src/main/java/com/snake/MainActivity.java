@@ -1,4 +1,4 @@
-package com.snake;
+package com.ivankolesov.snake;
 
 import com.facebook.react.ReactActivity;
 
