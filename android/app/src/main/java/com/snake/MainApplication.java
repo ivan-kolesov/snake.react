@@ -1,4 +1,4 @@
-package com.snake;
+package com.ivankolesov.snake;
 
 import android.app.Application;
 
