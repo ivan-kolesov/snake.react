@@ -9,8 +9,6 @@ import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "../
 
 const styles = StyleSheet.create({
     boardStyle: {
-        flexDirection: 'row',
-        position: "relative",
         width: SharedStyle.board.width,
         height: SharedStyle.board.height,
         backgroundColor: SharedStyle.color.primary,

@@ -12,11 +12,12 @@ const definiteWidth = width => {
 };
 
 const definiteHeight = height => {
+    const diffNavigationBarHeight = 20;
     const reminder = height % 20;
     if (reminder !== 0) {
-        return height - reminder - 60;
+        return height - reminder - 60 - diffNavigationBarHeight;
     } else {
-        return height;
+        return height - 60 - diffNavigationBarHeight;
     }
 };
 

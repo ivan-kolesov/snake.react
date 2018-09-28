@@ -23,7 +23,11 @@ const styles = StyleSheet.create({
             ios: {
                 paddingTop: 20
             }
-        })
+        }),
+    },
+    boardContainer: {
+        flex: 1,
+        justifyContent: 'center'
     },
     scoreBoard: {
         flexDirection: 'row',
@@ -221,7 +225,9 @@ class GameScreen extends React.Component {
                     <NavigationEvents onWillFocus={this.handleFocus} onDidBlur={this.handleClearTimeout}/>
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
-                    <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
+                    <View style={styles.boardContainer}>
+                        <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
+                    </View>
                 </View>
             </AndroidBackButton>
         );
