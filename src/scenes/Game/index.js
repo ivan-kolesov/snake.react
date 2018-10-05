@@ -55,10 +55,11 @@ class GameScreen extends React.Component {
     };
 
     tick() {
-        const {snake: sourceSnake, direction, intervalRate, setTimerId, setSnake} = this.props;
+        const {snake: sourceSnake, direction, intervalRate, setTimerId, setSnake, setDirectionPan} = this.props;
 
         const snake = this.move(sourceSnake, direction);
         setSnake(snake);
+        setDirectionPan(undefined);
 
         if (this.isKnotted(snake)) {
             this.handleGameOver();
@@ -200,7 +201,7 @@ class GameScreen extends React.Component {
     };
 
     render() {
-        const {snake, score, highScore, food, direction, setDirection} = this.props;
+        const {snake, score, highScore, food, direction, directionPan, setDirection, setDirectionPan} = this.props;
 
         return (
             <AndroidBackButton>
@@ -209,7 +210,10 @@ class GameScreen extends React.Component {
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
                     <View style={styles.boardContainer}>
-                        <Board setDirection={setDirection} direction={direction} snake={snake} food={food}/>
+                        <Board
+                            direction={direction} directionPan={directionPan}
+                            setDirection={setDirection} setDirectionPan={setDirectionPan}
+                            snake={snake} food={food}/>
                     </View>
                 </View>
             </AndroidBackButton>
@@ -225,6 +229,7 @@ const mapStateToProps = store => ({
     food: gameSelectors.getFood(store),
     intervalRate: gameSelectors.getIntervalRate(store),
     direction: gameSelectors.getDirection(store),
+    directionPan: gameSelectors.getDirectionPan(store),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -239,6 +244,9 @@ const mapDispatchToProps = dispatch => ({
     },
     setDirection(direction) {
         dispatch(gameActions.setDirection(direction));
+    },
+    setDirectionPan(direction) {
+        dispatch(gameActions.setDirectionPan(direction));
     },
     setScore(score) {
         dispatch(gameActions.setScore(score));

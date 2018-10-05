@@ -11,6 +11,7 @@ export const getInitialState = () => ({
     ],
     intervalRate: 5,
     direction: DIRECTION_RIGHT,
+    directionPan: undefined,
     lastSegment: segmentRate,
     food: {x: 5 * segmentRate, y: 5 * segmentRate},
     score: 0,
@@ -33,6 +34,8 @@ export default (state = initialState, action) => {
             return {...state, food: action.payload};
         case actions.SET_DIRECTION:
             return {...state, direction: action.payload};
+        case actions.SET_DIRECTION_PAN:
+            return {...state, directionPan: action.payload};
         case actions.SET_INTERVAL_RATE:
             return {...state, intervalRate: action.payload};
         case actions.SET_TIMER_ID:

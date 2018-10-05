@@ -19,46 +19,45 @@ class Board extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.directionBeignChanged = undefined;
         this.panResponder = this.createPanResponder();
     }
 
     createPanResponder = () => PanResponder.create({
         onMoveShouldSetResponderCapture: () => true,
         onMoveShouldSetPanResponderCapture: () => true,
-        onStartShouldSetPanResponderCapture: () => true,
 
         onPanResponderMove: (e, {vx, vy}) => {
             if (vx === 0 && vy === 0) {
                 return false;
             }
 
+            const {directionPan, setDirectionPan, setDirection, direction} = this.props;
+            if (directionPan !== undefined) {
+                return false;
+            }
+
             const absVx = Math.abs(vx);
             const absVy = Math.abs(vy);
-            const {direction} = this.props;
+
+            let changedDirection;
 
             if (absVx > absVy) {
                 if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1) {
-                    this.directionBeignChanged = vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT;
+                    changedDirection = vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT;
                 }
             } else {
                 if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1) {
-                    this.directionBeignChanged = vy > 0 ? DIRECTION_DOWN : DIRECTION_UP;
+                    changedDirection = vy > 0 ? DIRECTION_DOWN : DIRECTION_UP;
                 }
             }
 
-            return false;
-        },
-
-        onPanResponderRelease: () => {
-            if (this.directionBeignChanged === undefined) {
-                return;
+            if (changedDirection === undefined) {
+                return false;
             }
 
-            const {setDirection} = this.props;
-            setDirection(this.directionBeignChanged);
-
-            this.directionBeignChanged = undefined;
+            setDirectionPan(changedDirection);
+            setDirection(changedDirection);
+            return true;
         },
     });
 
@@ -81,7 +80,9 @@ Board.propTypes = {
     snake: PropTypes.array.isRequired,
     food: PropTypes.object.isRequired,
     direction: PropTypes.string.isRequired,
-    setDirection: PropTypes.func.isRequired
+    directionPan: PropTypes.string,
+    setDirection: PropTypes.func.isRequired,
+    setDirectionPan: PropTypes.func.isRequired,
 };
 
 export default Board;

@@ -3,6 +3,7 @@ export const SET_HIGH_SCORE = 'SET_HIGH_SCORE';
 export const SET_SNAKE = 'SET_SNAKE';
 export const SET_FOOD = 'SET_FOOD';
 export const SET_DIRECTION = 'SET_DIRECTION';
+export const SET_DIRECTION_PAN = 'SET_DIRECTION_PAN';
 export const SET_INTERVAL_RATE = 'SET_INTERVAL_RATE';
 export const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
 export const SET_TIMER_ID = 'SET_TIMER_ID';
@@ -29,6 +30,11 @@ export const setFood = food => ({
 
 export const setDirection = direction => ({
     type: SET_DIRECTION,
+    payload: direction
+});
+
+export const setDirectionPan = direction => ({
+    type: SET_DIRECTION_PAN,
     payload: direction
 });
 

@@ -11,3 +11,5 @@ export const getFood = store => store.game.food;
 export const getIntervalRate = store => store.game.intervalRate;
 
 export const getDirection = store => store.game.direction;
+
+export const getDirectionPan = store => store.game.directionPan;
