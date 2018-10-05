@@ -97,55 +97,38 @@ class GameScreen extends React.Component {
         let lastSegment = snake[0];
 
         for (let i = 0; i < sourceSnake.length; i++) {
-            if (i !== 0) {
-                lastSegment = sourceSnake[i - 1];
-            }
-
-            if (direction === DIRECTION_RIGHT) {
-                if (i === 0) {
+            if (i === 0) {
+                if (direction === DIRECTION_RIGHT) {
                     if (snake[i].x + boardConstants.segmentRate >= boardConstants.boardWidth) {
                         snake[i].x = 0;
                     } else {
                         snake[i].x = snake[i].x + boardConstants.segmentRate;
                     }
                     snake = this.bumpFood(snake, this.eatFood());
-                } else {
-                    snake[i].x = lastSegment.x;
-                    snake[i].y = lastSegment.y;
-                }
-            } else if (direction === DIRECTION_LEFT) {
-                if (i === 0) {
+                } else if (direction === DIRECTION_LEFT) {
                     snake[i].x = snake[i].x - boardConstants.segmentRate;
                     if (snake[i].x < 0) {
                         snake[i].x = boardConstants.boardWidth - boardConstants.segmentRate;
                     }
                     snake = this.bumpFood(snake, this.eatFood());
-                } else {
-                    snake[i].x = lastSegment.x;
-                    snake[i].y = lastSegment.y;
-                }
-            } else if (direction === DIRECTION_DOWN) {
-                if (i === 0) {
+                } else if (direction === DIRECTION_DOWN) {
                     snake[i].y = snake[i].y + boardConstants.segmentRate;
                     if (snake[i].y > boardConstants.boardHeight) {
                         snake[i].y = 0;
                     }
                     snake = this.bumpFood(snake, this.eatFood());
-                } else {
-                    snake[i].x = lastSegment.x;
-                    snake[i].y = lastSegment.y;
-                }
-            } else if (direction === DIRECTION_UP) {
-                if (i === 0) {
+                } else if (direction === DIRECTION_UP) {
                     snake[i].y = snake[i].y - boardConstants.segmentRate;
                     if (snake[i].y < 0) {
                         snake[i].y = boardConstants.boardHeight;
                     }
                     snake = this.bumpFood(snake, this.eatFood());
-                } else {
-                    snake[i].x = lastSegment.x;
-                    snake[i].y = lastSegment.y;
                 }
+            } else {
+                lastSegment = sourceSnake[i - 1];
+
+                snake[i].x = lastSegment.x;
+                snake[i].y = lastSegment.y;
             }
         }
 
