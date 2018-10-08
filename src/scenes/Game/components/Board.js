@@ -20,6 +20,7 @@ class Board extends React.PureComponent {
         super(props);
 
         this.panResponder = this.createPanResponder();
+        this.state = {allowChangeDirection: true};
     }
 
     createPanResponder = () => PanResponder.create({
@@ -27,6 +28,10 @@ class Board extends React.PureComponent {
         onMoveShouldSetPanResponderCapture: () => true,
 
         onPanResponderMove: (e, {vx, vy}) => {
+            if (!this.state.allowChangeDirection) {
+                return false;
+            }
+
             if (vx === 0 && vy === 0) {
                 return false;
             }
@@ -38,15 +43,16 @@ class Board extends React.PureComponent {
 
             const absVx = Math.abs(vx);
             const absVy = Math.abs(vy);
+            const velocityThreshold = 0.2;
 
             let changedDirection;
 
             if (absVx > absVy) {
-                if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1) {
+                if ([DIRECTION_RIGHT, DIRECTION_LEFT].indexOf(direction) === -1 && absVx > velocityThreshold) {
                     changedDirection = vx > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT;
                 }
             } else {
-                if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1) {
+                if ([DIRECTION_DOWN, DIRECTION_UP].indexOf(direction) === -1 && absVy > velocityThreshold) {
                     changedDirection = vy > 0 ? DIRECTION_DOWN : DIRECTION_UP;
                 }
             }
@@ -55,9 +61,14 @@ class Board extends React.PureComponent {
                 return false;
             }
 
+            this.setState({allowChangeDirection: false});
             setDirectionPan(changedDirection);
             setDirection(changedDirection);
             return true;
+        },
+
+        onPanResponderRelease: () => {
+            this.setState({allowChangeDirection: true});
         },
     });
 

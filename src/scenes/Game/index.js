@@ -158,7 +158,7 @@ class GameScreen extends React.Component {
             y: getRandomInt(0, boardConstants.frameY) * boardConstants.segmentRate
         };
 
-        if (!_.some(snake, (segment) => _.isEqual({x: segment.x, y: segment.y}, food))) {
+        if (!_.some(snake, segment => _.isEqual(food, {x: segment.x, y: segment.y}))) {
             return food;
         }
 
@@ -168,7 +168,7 @@ class GameScreen extends React.Component {
     bumpFood = (snake, eat) => {
         const {food} = this.props;
 
-        if (snake[0].x === food.x && snake[0].y === food.y) {
+        if (_.isEqual(food, {x: snake[0].x, y: snake[0].y})) {
             return eat(snake);
         } else {
             return snake;
