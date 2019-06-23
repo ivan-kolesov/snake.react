@@ -1,6 +1,6 @@
 {
   "name": "snake",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -11,10 +11,10 @@
   "dependencies": {
     "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
-    "react": "16.4.1",
-    "react-native": "0.56.1",
-    "react-native-splash-screen": "^3.1.1",
-    "react-navigation": "^2.13.0",
+    "react": "16.8.3",
+    "react-native": "0.59.9",
+    "react-native-splash-screen": "^3.2.0",
+    "react-navigation": "^2.18.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
@@ -22,10 +22,12 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "babel-jest": "23.6.0",
-    "babel-preset-react-native": "^5",
-    "jest": "23.6.0",
-    "react-test-renderer": "16.4.1"
+    "@babel/core": "^7.4.5",
+    "@babel/runtime": "^7.4.5",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.1",
+    "react-test-renderer": "^16.8.3"
   },
   "jest": {
     "preset": "react-native"
