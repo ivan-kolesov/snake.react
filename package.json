@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "16.8.3",
     "react-native": "0.59.9",
