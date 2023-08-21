@@ -1,12 +1,11 @@
 import React from 'react';
 import {StyleSheet, StatusBar, View, Platform, Dimensions, Alert} from 'react-native';
-import {NavigationEvents} from 'react-navigation';
 import Board from './components/Board';
 import * as boardConstants from './board';
 import ScoreText from '../../components/ScoreText';
 import * as gameSelectors from "../../services/game/selectors";
 import * as gameActions from "../../services/game/actions";
-import connect from "react-redux/es/connect/connect";
+import {connect} from 'react-redux';
 import _ from "lodash";
 import {DIRECTION_RIGHT, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN} from "./directions";
 import AndroidBackButton from '../../components/AndroidBackButton';
@@ -42,8 +41,19 @@ const styles = StyleSheet.create({
 });
 
 class GameScreen extends React.Component {
+    componentDidMount() {
+        this._unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+            this.handleFocus();
+        });
+        this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+            this.handleClearTimeout();
+        });
+    }
+
     componentWillUnmount() {
         this.handleClearTimeout();
+        this._unsubscribeFocus();
+        this._unsubscribeBlur();
     }
 
     handleFocus = () => {
@@ -206,7 +216,7 @@ class GameScreen extends React.Component {
         return (
             <AndroidBackButton>
                 <View style={styles.container}>
-                    <NavigationEvents onWillFocus={this.handleFocus} onDidBlur={this.handleClearTimeout}/>
+                    {/*<NavigationEvents onWillFocus={this.handleFocus} onDidBlur={this.handleClearTimeout}/>*/}
                     <StatusBar barStyle="light-content"/>
                     <ScoreBoardContainer score={score} highScore={highScore}/>
                     <View style={styles.boardContainer}>
