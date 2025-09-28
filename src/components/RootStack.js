@@ -8,28 +8,19 @@ import GameOverScreen from '../scenes/GameOver';
 const Stack = createStackNavigator();
 
 function RootStack() {
-    return (
-        <Stack.Navigator
-            initialRouteName="Home"
-            headerShown="false"
-            screenOptions={{
-                gestureEnabled: false,
-                headerShown: false
-            }}
-        >
-            <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-            />
-            <Stack.Screen
-                name="Game"
-                component={GameScreen}
-            />
-            <Stack.Screen
-                name="GameOver"
-                component={GameOverScreen}
-            />
-        </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      headerShown="false"
+      screenOptions={{
+        gestureEnabled: false,
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Game" component={GameScreen} />
+      <Stack.Screen name="GameOver" component={GameOverScreen} />
+    </Stack.Navigator>
+  );
 }
 export default RootStack;
