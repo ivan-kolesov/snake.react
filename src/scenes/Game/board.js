@@ -1,4 +1,4 @@
-import SharedStyle from "../../components/SharedStyles";
+import SharedStyle from '../../components/SharedStyles';
 
 export const segmentRate = 20;
 export const boardWidth = SharedStyle.board.width;
