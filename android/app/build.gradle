@@ -77,8 +77,8 @@ android {
         applicationId "com.ivankolesov.snake"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.9"
+        versionCode 8
+        versionName "1.10"
     }
     signingConfigs {
         debug {
@@ -99,7 +99,11 @@ android {
     splits {
         abi {
             reset()
-            enable true
+            // AAB (bundle) cannot coexist with ABI splits — Google Play
+            // creates per-device APKs from a single AAB itself.
+            enable !project.gradle.startParameter.taskNames.any {
+                it.toLowerCase().contains("bundle")
+            }
             universalApk false
             include "arm64-v8a", "x86_64"
         }
