@@ -2,23 +2,18 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const definiteWidth = width => {
-  const reminder = width % 20;
-  if (reminder !== 0) {
-    return width - reminder;
-  } else {
-    return width;
-  }
+const definiteWidth = (w: number): number => {
+  const reminder = w % 20;
+  return reminder !== 0 ? w - reminder : w;
 };
 
-const definiteHeight = height => {
+const definiteHeight = (h: number): number => {
   const diffNavigationBarHeight = 20;
-  const reminder = height % 20;
+  const reminder = h % 20;
   if (reminder !== 0) {
-    return height - reminder - 60 - diffNavigationBarHeight;
-  } else {
-    return height - 60 - diffNavigationBarHeight;
+    return h - reminder - 60 - diffNavigationBarHeight;
   }
+  return h - 60 - diffNavigationBarHeight;
 };
 
 const SharedStyle = {

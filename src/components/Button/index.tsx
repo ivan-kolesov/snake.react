@@ -1,7 +1,15 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  type TouchableOpacityProps,
+} from 'react-native';
 import SharedStyle from '../SharedStyles';
-import PropTypes from 'prop-types';
+
+interface ButtonProps extends TouchableOpacityProps {
+  text: string;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -22,16 +30,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = props => {
-  return (
-    <TouchableOpacity {...props} style={styles.container}>
-      <Text style={styles.text}>{props.text}</Text>
-    </TouchableOpacity>
-  );
-};
-
-Button.propTypes = {
-  text: PropTypes.string.isRequired,
-};
+const Button: React.FC<ButtonProps> = ({ text, ...rest }) => (
+  <TouchableOpacity {...rest} style={styles.container}>
+    <Text style={styles.text}>{text}</Text>
+  </TouchableOpacity>
+);
 
 export default Button;

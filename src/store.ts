@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import type { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
@@ -11,27 +12,29 @@ const persistConfig = {
   whitelist: ['game'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer as never,
+) as unknown as typeof rootReducer;
 
-export default () => {
+const configureAppStore = () => {
   const store = configureStore({
     reducer: persistedReducer,
-    middleware: getDefaultMiddleware => {
-      const base = getDefaultMiddleware({
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
         thunk: true,
-        serializableCheck: false, // можно настроить ignoredActions, но для простоты отключим
+        serializableCheck: false,
         immutableCheck: false,
-      });
-
-      if (__DEV__) {
-        const { createLogger } = require('redux-logger');
-        return base.concat(createLogger({ collapsed: true }));
-      }
-
-      return base;
-    },
+      }),
   });
 
   const persistor = persistStore(store);
   return { store, persistor };
 };
+
+export default configureAppStore;
+
+type AppStore = ReturnType<typeof configureAppStore>['store'];
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = ThunkDispatch<RootState, unknown, Action> &
+  AppStore['dispatch'];

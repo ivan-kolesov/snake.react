@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import SharedStyle from '../../../components/SharedStyles';
-import PropTypes from 'prop-types';
+import type { Coordinate } from '../../../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,17 +14,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Cell = props => {
-  const customStyle = {
-    left: props.x,
-    top: props.y,
-  };
-  return <View style={[styles.container, customStyle]} />;
-};
-
-Cell.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-};
+const Cell: React.FC<Coordinate> = ({ x, y }) => (
+  <View style={[styles.container, { left: x, top: y }]} />
+);
 
 export default Cell;

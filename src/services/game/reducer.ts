@@ -1,8 +1,10 @@
-import * as actions from '../game/actions';
+import type { GameState } from '../../types';
 import { DIRECTION_RIGHT } from '../../scenes/Game/directions';
 import { segmentRate } from '../../scenes/Game/board';
+import * as actions from './actions';
+import type { GameAction } from './actions';
 
-export const getInitialState = () => ({
+export const getInitialState = (): Omit<GameState, 'highScore'> => ({
   timerID: undefined,
   snake: [
     { id: 1, x: 2 * segmentRate, y: 0 },
@@ -17,12 +19,15 @@ export const getInitialState = () => ({
   score: 0,
 });
 
-const initialState = {
+const initialState: GameState = {
   highScore: 0,
   ...getInitialState(),
 };
 
-export default (state = initialState, action) => {
+const gameReducer = (
+  state: GameState = initialState,
+  action: GameAction,
+): GameState => {
   switch (action.type) {
     case actions.SET_SCORE:
       return { ...state, score: action.payload };
@@ -46,3 +51,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default gameReducer;
