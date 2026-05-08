@@ -17,14 +17,16 @@ interface BoardProps {
   food: Coordinate;
   direction: Direction;
   directionPan: Direction | undefined;
+  viewWidth: number;
+  viewHeight: number;
+  frameX: number;
+  frameY: number;
   setDirection: (direction: Direction) => void;
   setDirectionPan: (direction: Direction | undefined) => void;
 }
 
 const styles = StyleSheet.create({
   boardStyle: {
-    width: SharedStyle.board.width,
-    height: SharedStyle.board.height,
     backgroundColor: SharedStyle.color.primary,
   },
 });
@@ -34,6 +36,10 @@ const Board: React.FC<BoardProps> = ({
   food,
   direction,
   directionPan,
+  viewWidth,
+  viewHeight,
+  frameX,
+  frameY,
   setDirection,
   setDirectionPan,
 }) => {
@@ -99,8 +105,10 @@ const Board: React.FC<BoardProps> = ({
   );
 
   return (
-    <View style={styles.boardStyle} {...panResponder.panHandlers}>
-      <Grid />
+    <View
+      style={[styles.boardStyle, {width: viewWidth, height: viewHeight}]}
+      {...panResponder.panHandlers}>
+      <Grid frameX={frameX} frameY={frameY} />
       {snake.map(segment => (
         <Segment key={segment.id} x={segment.x} y={segment.y} />
       ))}

@@ -1,26 +1,31 @@
 import React, {useMemo} from 'react';
 import {View} from 'react-native';
-import * as boardConstants from '../lib/board';
+import {segmentRate} from '../lib/board';
 import Cell from './Cell';
 import type {SnakeSegment} from '../model/types';
 
-const generateGrid = (): SnakeSegment[] => {
+interface GridProps {
+  frameX: number;
+  frameY: number;
+}
+
+const generateGrid = (frameX: number, frameY: number): SnakeSegment[] => {
   const cells: SnakeSegment[] = [];
   let counter = 0;
-  for (let i = 0; i <= boardConstants.frameX; i++) {
-    for (let j = 0; j <= boardConstants.frameY; j++) {
+  for (let i = 0; i <= frameX; i++) {
+    for (let j = 0; j <= frameY; j++) {
       cells.push({
         id: counter++,
-        x: i * boardConstants.segmentRate,
-        y: j * boardConstants.segmentRate,
+        x: i * segmentRate,
+        y: j * segmentRate,
       });
     }
   }
   return cells;
 };
 
-const Grid: React.FC = () => {
-  const cells = useMemo(generateGrid, []);
+const Grid: React.FC<GridProps> = ({frameX, frameY}) => {
+  const cells = useMemo(() => generateGrid(frameX, frameY), [frameX, frameY]);
   return (
     <View>
       {cells.map(cell => (

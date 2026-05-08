@@ -27,6 +27,7 @@ import {
   setSnake,
 } from '../model/actions';
 import {hasNoLeftSpace, isKnotted, makeFood, moveSnake} from '../lib/logic';
+import {useBoardDimensions} from '../lib/useBoardDimensions';
 import type {Direction} from '../model/types';
 import type {RootStackParamList} from '../../app/navigation/types';
 import type {RootState} from '../../app/store';
@@ -61,6 +62,12 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
   const direction = useAppSelector(getDirection);
   const directionPan = useAppSelector(getDirectionPan);
 
+  const {viewWidth, viewHeight, frameX, frameY} = useBoardDimensions();
+  const frameXRef = useRef(frameX);
+  frameXRef.current = frameX;
+  const frameYRef = useRef(frameY);
+  frameYRef.current = frameY;
+
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const clearTick = useCallback(() => {
@@ -81,12 +88,15 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
 
   const tick = useCallback(() => {
     const state = store.getState().game;
-    const {snake: currentSnake, direction: currentDirection} = state;
+    const fx = frameXRef.current;
+    const fy = frameYRef.current;
 
     const {snake: nextSnake, ate} = moveSnake(
-      currentSnake,
-      currentDirection,
+      state.snake,
+      state.direction,
       state.food,
+      fx,
+      fy,
     );
 
     let resultSnake = nextSnake;
@@ -97,11 +107,11 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
       const nextScore = state.score + 1;
       dispatch(setScore(nextScore));
 
-      if (!hasNoLeftSpace(resultSnake)) {
+      if (!hasNoLeftSpace(resultSnake, fx, fy)) {
         if (nextScore % 3 === 0) {
           dispatch(setIntervalRate(state.intervalRate + 1));
         }
-        dispatch(setFood(makeFood(resultSnake)));
+        dispatch(setFood(makeFood(resultSnake, fx, fy)));
       }
     }
 
@@ -112,7 +122,7 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
       goToGameOver();
       return;
     }
-    if (hasNoLeftSpace(resultSnake)) {
+    if (hasNoLeftSpace(resultSnake, fx, fy)) {
       Alert.alert('You win');
       goToGameOver();
       return;
@@ -125,7 +135,14 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
   useEffect(() => {
     const startTick = () => {
       clearTick();
-      dispatch(setInitialState()).then(() => tick());
+      dispatch(setInitialState()).then(() => {
+        // place initial food within current frame
+        const state = store.getState().game;
+        dispatch(
+          setFood(makeFood(state.snake, frameXRef.current, frameYRef.current)),
+        );
+        tick();
+      });
     };
 
     const unsubFocus = navigation.addListener('focus', startTick);
@@ -136,7 +153,7 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
       unsubFocus();
       unsubBlur();
     };
-  }, [navigation, dispatch, tick, clearTick]);
+  }, [navigation, store, dispatch, tick, clearTick]);
 
   const handleSetDirection = useCallback(
     (d: Direction) => dispatch(setDirection(d)),
@@ -161,6 +178,10 @@ const GameScreen: React.FC<GameScreenProps> = ({navigation}) => {
               setDirectionPan={handleSetDirectionPan}
               snake={snake}
               food={food}
+              viewWidth={viewWidth}
+              viewHeight={viewHeight}
+              frameX={frameX}
+              frameY={frameY}
             />
           </View>
         </View>

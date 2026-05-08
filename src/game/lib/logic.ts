@@ -1,4 +1,4 @@
-import * as boardConstants from './board';
+import {segmentRate} from './board';
 import {
   DIRECTION_DOWN,
   DIRECTION_LEFT,
@@ -16,52 +16,63 @@ export const isKnotted = (snake: Snake): boolean => {
   return false;
 };
 
-export const hasNoLeftSpace = (snake: Snake): boolean =>
-  snake.length === (boardConstants.frameY + 1) * (boardConstants.frameY + 1);
+export const hasNoLeftSpace = (
+  snake: Snake,
+  frameX: number,
+  frameY: number,
+): boolean => snake.length === (frameX + 1) * (frameY + 1);
 
-export const makeFood = (snake: Snake): Coordinate => {
+export const makeFood = (
+  snake: Snake,
+  frameX: number,
+  frameY: number,
+): Coordinate => {
   const getRandomInt = (min: number, max: number): number =>
     Math.floor(Math.random() * (max - min + 1)) + min;
 
   const candidate: Coordinate = {
-    x: getRandomInt(0, boardConstants.frameX) * boardConstants.segmentRate,
-    y: getRandomInt(0, boardConstants.frameY) * boardConstants.segmentRate,
+    x: getRandomInt(0, frameX) * segmentRate,
+    y: getRandomInt(0, frameY) * segmentRate,
   };
 
   const collides = snake.some(
     segment => candidate.x === segment.x && candidate.y === segment.y,
   );
-  return collides ? makeFood(snake) : candidate;
+  return collides ? makeFood(snake, frameX, frameY) : candidate;
 };
 
 export const moveSnake = (
   sourceSnake: Snake,
   dir: Direction,
   food: Coordinate,
+  frameX: number,
+  frameY: number,
 ): {snake: Snake; ate: boolean} => {
   const result: Snake = sourceSnake.map(segment => ({...segment}));
+  const maxX = frameX * segmentRate;
+  const maxY = frameY * segmentRate;
 
   for (let i = 0; i < sourceSnake.length; i++) {
     if (i === 0) {
       if (dir === DIRECTION_RIGHT) {
-        result[i].x += boardConstants.segmentRate;
-        if (result[i].x >= boardConstants.boardWidth) {
+        result[i].x += segmentRate;
+        if (result[i].x > maxX) {
           result[i].x = 0;
         }
       } else if (dir === DIRECTION_LEFT) {
-        result[i].x -= boardConstants.segmentRate;
+        result[i].x -= segmentRate;
         if (result[i].x < 0) {
-          result[i].x = boardConstants.boardWidth - boardConstants.segmentRate;
+          result[i].x = maxX;
         }
       } else if (dir === DIRECTION_DOWN) {
-        result[i].y += boardConstants.segmentRate;
-        if (result[i].y > boardConstants.boardHeight) {
+        result[i].y += segmentRate;
+        if (result[i].y > maxY) {
           result[i].y = 0;
         }
       } else if (dir === DIRECTION_UP) {
-        result[i].y -= boardConstants.segmentRate;
+        result[i].y -= segmentRate;
         if (result[i].y < 0) {
-          result[i].y = boardConstants.boardHeight;
+          result[i].y = maxY;
         }
       }
     } else {
