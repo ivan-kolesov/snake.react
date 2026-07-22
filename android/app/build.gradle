@@ -77,8 +77,8 @@ android {
         applicationId "com.ivankolesov.snake"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "1.11"
+        versionCode 10
+        versionName "1.12"
     }
     signingConfigs {
         debug {

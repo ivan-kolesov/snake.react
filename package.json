@@ -13,13 +13,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/runtime": "^7.29.7",
+    "@babel/runtime": "^8.0.0",
     "@react-native-async-storage/async-storage": "^3.1.1",
     "@react-navigation/native": "^7.3.4",
     "@react-navigation/native-stack": "^7.17.6",
     "@reduxjs/toolkit": "^2.12.0",
     "lodash": "4.18.1",
-    "react": "19.2.7",
+    "react": "19.2.8",
     "react-native": "0.86.0",
     "react-native-gesture-handler": "^3.0.2",
     "react-native-safe-area-context": "^5.8.0",
@@ -46,8 +46,8 @@
     "eslint": "^9.39.4",
     "jest": "^30.4.2",
     "prettier": "^3.8.4",
-    "react-test-renderer": "19.2.7",
-    "typescript": "^6.0.3"
+    "react-test-renderer": "19.2.8",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=22.11.0"
